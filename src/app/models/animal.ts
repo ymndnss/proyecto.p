@@ -1,3 +1,4 @@
+//creacion de interfaces 
 export interface Animal {
     id: string;
     nombre: string;
