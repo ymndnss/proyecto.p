@@ -1,6 +1,7 @@
 //creacion de autentificacion
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // ARCHIVO DE RUTAS DEL MÓDULO
 import { AutentificacionRoutingModule } from './autentificacion-routing.module';
@@ -35,6 +36,7 @@ import { FormsModule } from '@angular/forms';
     MatSelectModule,
     // ANGULAR
     FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     RegistroComponent,
