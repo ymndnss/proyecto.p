@@ -37,3 +37,56 @@
         </tr>
     </tbody>
 </table>
+
+<!--boton para agregar productos-->
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarProducto">
+    Launch demo modal
+  </button>
+  
+  <!-- Modal para agregar productos-->
+  <div class="modal fade" id="agregarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!--encabezado-->
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Ingrese un nuevo producto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <!--cuerpo-->
+        <div [formGroup]="producto" class="modal-body">
+          <div class="mb-3"></div>
+          <label class="form-label">Ingrese el nombre del producto</label>
+          <input class="form-control" type="text" formControlName="nombre" placeholder="ejem:medias de chamchitos">
+        </div>
+        <div class="mb-3">    
+            <label for="" class="form-label">Ingrese el valor del producto</label>
+            <input class="form-control" type="number" formControlName="precio" placeholder="ejem:$600">
+        </div>
+
+        <div class="mb-3">
+            <label for="" class="form-label">seleccione una categoria:</label>
+            <select class="form-control"class="form-select" formControlName="categoria" placeholder="ejem: ">
+                <option selected>elija una opcion</option>
+                <option value="alimentacion">alimentacion</option>
+                <option value="indumentaria">indumentaria</option>
+                <option value="juguetes">juguete</option>
+        </div>
+
+        <div class="mb-3">
+            <label for="" class="form-label">ingrese una imagen:</label>
+            <input class="form-control" type="text" formControlName="imagen" placeholder="ejem:ingrese el vinculo de la imagen">
+        </div>
+
+        <div class="mb-3">
+            <label for="" class="form-label">ingrese un texto alternativo:</label>
+            <input class="form-control" type="text" formControlName="alt" placeholder="ejem:texto alternativo">
+        </div>
+         <!--acciones del modal-->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Guardar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
