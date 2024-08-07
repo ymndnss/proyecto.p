@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Producto } from 'src/app/models/producto';
+import { CrudService } from '../../services/crud.service';
 
 @Component({
   selector: 'app-table',
@@ -17,5 +18,5 @@ producto=new FormGroup({
   imagen: new FormControl ('',Validators.required),
   alt: new FormControl ('', Validators.required)
 })
-
+constructor(public servicioCrud: CrudService){}
 }
