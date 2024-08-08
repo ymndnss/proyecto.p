@@ -10,6 +10,11 @@ import { CrudService } from '../../services/crud.service';
 })
 export class TableComponent {
   coleccionProductos: Producto[] = [];
+  //variable para manejar el estado de edicion 
+  modalVisibleProducto: boolean = false;
+  //variable que va a tomar el producto que nosotros elijamos 
+  productoSeleccionado!: Producto //recibe valores vacios
+
   producto = new FormGroup({
     nombre: new FormControl('validators.required'),
     precio: new FormControl(0, Validators.required),
@@ -18,7 +23,7 @@ export class TableComponent {
     imagen: new FormControl('', Validators.required),
     alt: new FormControl('', Validators.required),
   });
-  constructor(public servicioCrud: CrudService) {}
+  constructor(public servicioCrud: CrudService) { }
   ngOnInit(): void {
     //subscribe=notifica constantemente los cambios acutalesw del sistema
     this.servicioCrud.obtenerProducto().subscribe((producto) => {
@@ -45,5 +50,21 @@ export class TableComponent {
           alert('hubo un problema con al agregar un producto');
         });
     }
+  }
+  mostrarBorrar(productoSeleccionado: Producto) {
+    //abre el modal
+    this.modalVisibleProducto = true;
+    //toma los valores del producto selecionado
+    this.productoSeleccionado = productoSeleccionado;
+  }
+  //funcion de eliminar definitivamente al producto
+  borrarProducto() {
+this.servicioCrud.eliminarProducto(this.productoSeleccionado.idProducto)
+.then(respuesta=>{
+  alert("el producto se la eliminado")
+})
+.catch(error=>{
+  alert("no se ha eliminado \n"+error)
+})
   }
 }

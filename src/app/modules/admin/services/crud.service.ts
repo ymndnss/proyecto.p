@@ -42,12 +42,24 @@ export class CrudService {
   // OBTENER productos
   obtenerProducto() {
     return this.productosCollection
-    //snapshotchanges= toma una captura del estado de los datos
-    //pipe= funciona como una tuberia que retorna el nuevo arreglo
-    //map= recorre esa nueva informacion 
-    //a= resguarada la nueva informacion y la envia
+      //snapshotchanges= toma una captura del estado de los datos
+      //pipe= funciona como una tuberia que retorna el nuevo arreglo
+      //map= recorre esa nueva informacion 
+      //a= resguarada la nueva informacion y la envia
       .snapshotChanges().pipe(map(Action => Action.map(a => a.payload.doc.data())));
     // EDITAR productos
     // ELIMINAR productos
+  }
+  eliminarProducto(producto: string) {
+    return new Promise((resolve, reject) => {
+      try {
+        const respuesta = this.productosCollection.doc(producto).delete();
+        resolve(respuesta)
+      }
+      catch (error) {
+        reject(error);
+      }
+    }
+    )
   }
 }
