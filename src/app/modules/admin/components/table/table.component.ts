@@ -16,7 +16,7 @@ export class TableComponent {
   productoSeleccionado!: Producto //recibe valores vacios
 
   producto = new FormGroup({
-    nombre: new FormControl('validators.required'),
+    nombre: new FormControl('',Validators.required),
     precio: new FormControl(0, Validators.required),
     descripcion: new FormControl('', Validators.required),
     categoria: new FormControl('', Validators.required),
@@ -61,10 +61,43 @@ export class TableComponent {
   borrarProducto() {
 this.servicioCrud.eliminarProducto(this.productoSeleccionado.idProducto)
 .then(respuesta=>{
-  alert("el producto se la eliminado")
+  alert("el producto se ha eliminado")
 })
 .catch(error=>{
   alert("no se ha eliminado \n"+error)
 })
   }
+  //funcion para seleccionar el producto editado
+  mostrarEditar(productoSeleccionado:Producto){
+    //enviar a setear los nuevos valores y resignarlos a las variables
+    //el ID no se vuelve a enviar ni se modifica, por ende no lo llamamos
+this.productoSeleccionado=productoSeleccionado;
+this.producto.setValue({
+  nombre:productoSeleccionado.nombre,
+  precio:productoSeleccionado.precio,
+  descripcion:productoSeleccionado.descripcion,
+  categoria:productoSeleccionado.categoria,
+  imagen:productoSeleccionado.imagen,
+  alt:productoSeleccionado.alt
+})
+  }
+  editarProducto(){
+let datos:Producto={
+  idProducto: this.productoSeleccionado.idProducto,
+  nombre:this.producto.value.nombre!,
+  precio:this.producto.value.precio!,
+  descripcion:this.producto.value.descripcion!,
+  categoria:this.producto.value.categoria!,
+  imagen:this.producto.value.imagen!,
+  alt:this.producto.value.alt!
 }
+this.servicioCrud.modificarProducto(this.productoSeleccionado.idProducto,datos)
+.then(producto =>{
+  alert("el producto fue modificado con exito");
+})
+.catch(error=>{
+  alert("hubo un problema al modifcar el producto")
+});
+  }
+}
+

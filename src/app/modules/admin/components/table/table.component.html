@@ -13,7 +13,7 @@
 
     <tbody>
         <tr *ngFor="let producto of coleccionProductos">
-            <th scope="row">1</th>
+            <th scope="row">2</th>
 
             <td>
                 <img src="{{producto.imagen}}" alt="{{producto.alt}}">
@@ -25,14 +25,17 @@
 
             <!-- ACCIONES -->
             <td>
-                <button id="btn-edit" title="Editar" type="button" class="btn btn-outline-warning">
+                <button id="btn-edit" title="Editar" type="button" class="btn btn-outline-warning"
+                    data-bs-toggle="modal" data-bs-target="#editarProducto">
                     <mat-icon>edit</mat-icon>
                 </button>
             </td>
             <td>
-                <button id="btn-delete" title="Eliminar" type="button" class="btn btn-outline-danger">
+                <button id="btn-delete" title="Eliminar" type="button" class="btn btn-outline-danger"
+                    data-bs-toggle="modal" data-bs-target="#eliminarProducto" (click)="mostrarBorrar(producto)">
                     <mat-icon>delete</mat-icon>
                 </button>
+
             </td>
         </tr>
     </tbody>
@@ -73,13 +76,12 @@
 
                 <div class="mb-3">
                     <label for="" class="form-label">seleccione una categoria:</label>
-                    <select class="form-control" class="form-select" formControlName="categoria"
-                        placeholder="ejem:">
-                    <option selected>elija una opcion</option>
-                    <option value="alimentacion">alimentacion</option>
-                    <option value="indumentaria">indumentaria</option>
-                    <option value="juguetes">juguete</option>
-                </select>
+                    <select class="form-control" class="form-select" formControlName="categoria" placeholder="ejem:">
+                        <option selected disabled>elija una opcion</option>
+                        <option value="alimentacion">alimentacion</option>
+                        <option value="indumentaria">indumentaria</option>
+                        <option value="juguetes">juguete</option>
+                    </select>
                 </div>
 
                 <div class="mb-3">
@@ -92,13 +94,35 @@
                     <label for="" class="form-label">ingrese un texto alternativo:</label>
                     <input class="form-control" type="text" formControlName="alt" placeholder="ejem:texto alternativo">
                 </div>
-
             </div>
+
             <!--acciones del modal-->
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal"
                     (click)="agregarProducto()">Guardar</button>
+                <button type="button" class="btn btn-secondary" (click)="borrarProducto()"
+                    data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para eliminar produtos -->
+<div class="modal fade" id="eliminarProducto" *ngIf="modalVisibleProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">estas seguro?
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{productoSeleccionado.nombre}}
+                <img src="{{productoSeleccionado.imagen}}" alt="{{productoSeleccionado.alt}}">
+            </div>
+            <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="borrarProducto()">Eliminar</button>
             </div>
         </div>
     </div>
