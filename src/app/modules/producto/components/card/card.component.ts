@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output,EventEmitter } from '@angular/core';
 import { Producto } from 'src/app/models/producto';
 import { CrudService } from 'src/app/modules/admin/services/crud.service';
 
@@ -17,6 +17,14 @@ export class CardComponent {
   // Variable para manejar estado de un modal
   modalVisible: boolean = false;
 
+  compraVisible:boolean=false;
+
+  @Input()productoReciente:string='';
+  @Output()productoAgregado=new EventEmitter<Producto>
+
+
+
+
   constructor(public servicioCrud: CrudService){}
 
   ngOnInit(): void{
@@ -33,4 +41,9 @@ export class CardComponent {
     // Guarda información de un producto elegido por el usuario
     this.productoSeleccionado = info;
   }
+  agregarProducto(info:Producto){
+    this.productoAgregado.emit(info)
+    this.compraVisible=true 
+  }
 }
+
